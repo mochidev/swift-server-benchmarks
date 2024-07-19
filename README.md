@@ -13,8 +13,11 @@ Please make sure jemalloc is installed:
 
 Run the benchmarks with:
 ```
-% swift package benchmark
+% swift package --disable-sandbox benchmark
 ```
+
+> [!IMPORTANT]
+> `--disable-sandbox` is necessary to bind benchmarked servers to a port on your system so they can run. As with all software you download from the internet, please inspect it before running it!
 
 ### Naming Convention
 

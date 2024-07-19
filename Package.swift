@@ -12,14 +12,10 @@ let package = Package(
         .watchOS(.v10),
         .visionOS(.v1),
     ],
-    products: [
-        .executable(name: "SwiftServerBenchmarks", targets: [
-            "SwiftServerBenchmarks"
-        ]),
-    ],
     dependencies: [
         .package(url: "https://github.com/ordo-one/package-benchmark", .upToNextMajor(from: "1.23.5")),
         .package(url: "https://github.com/apple/swift-nio", .upToNextMajor(from: "2.68.0")),
+        .package(url: "https://github.com/apple/swift-log", .upToNextMajor(from: "1.6.1")),
         .package(url: "https://github.com/vapor/vapor", .upToNextMajor(from: "4.102.1")),
         .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.21.2")
     ],
@@ -36,6 +32,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Benchmark", package: "package-benchmark"),
                 .product(name: "NIO", package: "swift-nio"),
+                .product(name: "Logging", package: "swift-log"),
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "AsyncHTTPClient", package: "async-http-client"),
                 .target(name: "Helpers"),

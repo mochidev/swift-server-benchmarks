@@ -5,7 +5,7 @@ import Vapor
 import Helpers
 
 struct VaporBenchmarks {
-    init() {
+    @discardableResult init() {
         Benchmark(
             "SingleRequest_AsyncHTTPClient_TCP_Loopback_TCP_HTTP_Vapor_Computed_1GB_Random",
             configuration: .init(scalingFactor: .one, maxIterations: .count(10))

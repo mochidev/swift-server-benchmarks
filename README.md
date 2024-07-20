@@ -11,7 +11,7 @@ Please make sure jemalloc is installed:
 
 ### Running Benchmarks
 
-Run the benchmarks with:
+Running through Xcode is not supported. Please run the benchmarks with:
 ```
 % swift package --disable-sandbox benchmark
 ```
@@ -31,3 +31,14 @@ On the server end, `<- TCP <- TLS <- HTTP2 <- ResponseCompression <- Vapor <- Co
 
 > [!Note]
 > The protocol and options for the client are omitted because they are not only also specified on the server half, but also indicate default options that don't need to be configured.
+
+
+## Contributing
+
+Contribution is welcome! Please take a look at the issues already available, or start a new discussion to propose a new feature. Although guarantees can't be made regarding feature requests, PRs that fit within the goals of the project and that have been discussed beforehand are more than welcome!
+
+Please make sure that all submissions have clean commit histories, are well documented, and thoroughly tested. **Please rebase your PR** before submission rather than merge in `main`. Linear histories are required, so merge commits in PRs will not be accepted.
+
+## Support
+
+To support this project, consider following [@dimitribouniol](https://mastodon.social/@dimitribouniol) on Mastodon, or checking out his app, [Jiiiii](https://jiiiii.moe/).

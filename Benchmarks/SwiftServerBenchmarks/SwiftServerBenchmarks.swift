@@ -4,5 +4,6 @@ let benchmarks = {
     /// Disable server logging that could obstruct the benchmarks
     LoggingSystem.bootstrap { _ in SwiftLogNoOpLogHandler() }
     
+    HelperBenchmarks()
     VaporBenchmarks()
 }

@@ -38,6 +38,9 @@ let package = Package(
                 .target(name: "Helpers"),
             ],
             path: "Benchmarks/SwiftServerBenchmarks",
+            swiftSettings: [
+                .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release)),
+            ],
             plugins: [
                 .plugin(name: "BenchmarkPlugin", package: "package-benchmark")
             ]

@@ -1,36 +1,26 @@
 import Vapor
 
-public func EventLoopFutureRandomComputedResponse(size: Int) -> @Sendable (_ request: Request) -> Response {
+@inlinable
+public func EventLoopFutureRandomComputedResponse(size: Int, chunkSize: Int = 256) -> @Sendable (_ request: Request) -> Response {
     precondition(size >= 256, "size must be larger than 256 bytes")
     return { request in
         Response(body: .init(stream: { writer in
-            for block in 0..<(size/256) {
-                /// Create a consistent, but ever so slightly different byte pattern
-                var bytes = Array(repeating: UInt8(block % 0xFF), count: 256)
-                for index in bytes.indices {
-                    bytes[index] = UInt8((Int(bytes[index]) + index) % 0xFF)
+            var lastEventLoop: EventLoopFuture<Void> = writer.eventLoop.makeSucceededVoidFuture()
+            for block in 0..<(size/chunkSize) {
+                let lastEventLoop = lastEventLoop.map {
+                    writer.write(.buffer(ByteBuffer(bytes: generateBytePattern(chunkSize: chunkSize, block: block))))
                 }
-                let _ = writer.write(.buffer(ByteBuffer(bytes: bytes)))
             }
-            let _ = writer.write(.end)
+            let _ = lastEventLoop.map {
+                writer.write(.end)
+            }
         }))
     }
 }
 
+@inlinable
 public func EventLoopFutureRandomFixedSizeResponse(size: Int) -> @Sendable (_ request: Request) -> Response {
-    precondition(size >= 256, "size must be larger than 256 bytes")
-    var fixedSizeBuffer: [UInt8] = []
-    fixedSizeBuffer.reserveCapacity(size)
-    for block in 0..<(size/256) {
-        /// Create a consistent, but ever so slightly different byte pattern
-        var bytes = Array(repeating: UInt8(block % 0xFF), count: 256)
-        for index in bytes.indices {
-            bytes[index] = UInt8((Int(bytes[index]) + index) % 0xFF)
-        }
-        fixedSizeBuffer.append(contentsOf: bytes)
-    }
-    
-    let byteBuffer = ByteBuffer(bytes: fixedSizeBuffer)
+    let byteBuffer = generateByteBuffer(size: size)
     
     return { request in
         Response(body: .init(buffer: byteBuffer))

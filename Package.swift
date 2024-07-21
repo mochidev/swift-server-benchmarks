@@ -25,6 +25,7 @@ let package = Package(
             dependencies: [
                 .product(name: "NIO", package: "swift-nio"),
                 .product(name: "Vapor", package: "vapor"),
+                .product(name: "AsyncHTTPClient", package: "async-http-client"),
             ]
         ),
         .executableTarget(

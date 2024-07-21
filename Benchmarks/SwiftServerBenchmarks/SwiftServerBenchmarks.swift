@@ -1,4 +1,5 @@
 import Logging
+
 /// Add all benchmarks to this closure to register them.
 let benchmarks = {
     /// Disable server logging that could obstruct the benchmarks

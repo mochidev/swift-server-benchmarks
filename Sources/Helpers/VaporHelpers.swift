@@ -1,4 +1,16 @@
 import Vapor
+import Foundation
+
+extension Application {
+    public static func makeSingleUseServer() async throws -> Application {
+        let app = try await Application.make(.development, .shared(MultiThreadedEventLoopGroup(numberOfThreads: 1)))
+        app.http.server.configuration.hostname = "127.0.0.1"
+        app.http.server.configuration.port = 0
+        app.http.server.configuration.supportVersions = [.one]
+        
+        return app
+    }
+}
 
 @inlinable
 public func EventLoopFutureRandomComputedResponse(size: Int, chunkSize: Int = 256) -> @Sendable (_ request: Request) -> Response {

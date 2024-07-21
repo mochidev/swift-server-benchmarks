@@ -7,6 +7,7 @@ extension HTTPClient {
     public static func makeSingleUseClient() -> HTTPClient {
         var clientConfiguration = HTTPClient.Configuration()
         clientConfiguration.maximumUsesPerConnection = 1
+        clientConfiguration.decompression = .enabled(limit: .none)
         
         return HTTPClient(eventLoopGroupProvider: .shared(MultiThreadedEventLoopGroup(numberOfThreads: 1)), configuration: clientConfiguration)
     }
@@ -29,6 +30,7 @@ extension HTTPClient {
         
         var clientConfiguration = HTTPClient.Configuration(tlsConfiguration: clientTLSConfiguration)
         clientConfiguration.maximumUsesPerConnection = 1
+        clientConfiguration.decompression = .enabled(limit: .none)
         
         return HTTPClient(eventLoopGroupProvider: .shared(MultiThreadedEventLoopGroup(numberOfThreads: 1)), configuration: clientConfiguration)
     }

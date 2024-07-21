@@ -26,6 +26,10 @@ let package = Package(
                 .product(name: "NIO", package: "swift-nio"),
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "AsyncHTTPClient", package: "async-http-client"),
+            ],
+            resources: [
+                .copy("Resources/expired.crt"),
+                .copy("Resources/expired.key"),
             ]
         ),
         .executableTarget(

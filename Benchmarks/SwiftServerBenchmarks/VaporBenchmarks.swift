@@ -7,7 +7,7 @@ import Helpers
 struct VaporBenchmarks {
     @discardableResult init() {
         Benchmark(
-            "SingleRequest -> AsyncHTTPClient -> TCP -> Loopback <- TCP <- HTTP <- Vapor <- Computed <- 4MB <- Pattern (246 KB chunk)",
+            "SingleRequest -> AsyncHTTPClient -> TCP -> Loopback <- TCP <- HTTP <- Vapor <- Computed <- 4MB <- Pattern (246 B chunk)",
             configuration: .init(scalingFactor: .one)
         ) { benchmark in
             let app = try await Application.make(.development, .shared(MultiThreadedEventLoopGroup(numberOfThreads: 1)))
